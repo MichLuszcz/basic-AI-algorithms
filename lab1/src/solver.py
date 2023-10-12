@@ -17,3 +17,7 @@ class Solver(ABC):
         Returns the solution and may return additional info.
         """
         ...
+        # ma znalesc minimum
+        # problem = funkcja i jej gradient
+        # x0 = punkt startowy w n wymiarze
+        #
