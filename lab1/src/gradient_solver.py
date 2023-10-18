@@ -20,10 +20,11 @@ class GradientSolver(Solver):
         Returns the solution and may return additional info.
         """
         x = x0
-        while True:
+        for n in range(100):
             d = problem.gradient_value(x)
-            for i in len(x):
+            for i in range(len(x)):
                 x[i] -= self.beta * d[i]
+        return x
         # ma znalesc minimum
         # problem = funkcja i jej gradient
         # x0 = punkt startowy w n wymiarze
