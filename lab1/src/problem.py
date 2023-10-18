@@ -1,7 +1,7 @@
 
 
 class Problem:
-    def __init__(self, function: function, gradient: function):
+    def __init__(self, function, gradient):
         self.function = function
         self.gradient = gradient
 
