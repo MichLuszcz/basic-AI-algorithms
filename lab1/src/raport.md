@@ -1,5 +1,7 @@
 Celem projektu jest stworzenie solvera, który znajduje minimum dowolnej funkcji, jeśli ma wzory 
-jej i jej gradientu i zbadanie, jak 
+jej i jej gradientu i zbadanie, jak rozmiar kroku wpływa na wynik.
+
+
 
 
 
