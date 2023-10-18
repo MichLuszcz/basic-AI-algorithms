@@ -1,5 +1,5 @@
 from abc import ABC, abstractmethod
-
+from problem import Problem
 
 class Solver(ABC):
     """A solver. It may be initialized with some hyperparameters."""
@@ -10,7 +10,7 @@ class Solver(ABC):
         ...
 
     @abstractmethod
-    def solve(self, problem, x0, *args, **kwargs):
+    def solve(self, problem: Problem, x0: tuple, *args, **kwargs):
         """
         A method that solves the given problem for given initial solution.
         It may accept or require additional parameters.
