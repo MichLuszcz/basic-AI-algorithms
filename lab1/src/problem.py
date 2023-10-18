@@ -1,5 +1,3 @@
-
-
 class Problem:
     def __init__(self, function, gradient):
         self.function = function
@@ -10,6 +8,3 @@ class Problem:
 
     def gradient_value(self, x0: list) -> list:
         return self.gradient(x0)
-
-
-
