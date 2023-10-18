@@ -9,7 +9,7 @@ from numpy import euler_gamma
 def main():
     solver = GradientSolver(0.2)
     def square_funct(x):
-        return [1/4 * (x[0] ** 4)]
+        return 1/4 * (x[0] ** 4)
     
     def gradient(x):
         return [x[0] ** 3]
