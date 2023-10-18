@@ -1,6 +1,7 @@
 from solver import Solver
 from problem import Problem
 from numpy import linalg
+from copy import copy
 
 DefaultBeta = 0.4
 
@@ -24,7 +25,7 @@ class MinSolver(Solver):
             d = problem.gradient_value(x)
             if linalg.norm(d) <= self.epsilon:
                 return x, visited_points
-            visited_points.append(x)
+            visited_points.append(copy(x))
             for i in range(len(x)):
                 x[i] -= self.beta * d[i]
         return x, visited_points

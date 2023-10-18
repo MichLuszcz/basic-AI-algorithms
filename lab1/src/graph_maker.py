@@ -1,6 +1,8 @@
 from numpy import euler_gamma, exp
 from numpy import linspace, meshgrid
 import matplotlib.pyplot as plt
+from gradient_solver import MinSolver
+from problem import Problem
 
 
 def funct1(x):
@@ -43,8 +45,36 @@ def graph_3d(function):
     ax.set_xlabel("x", fontsize=12)
     ax.set_ylabel("y", fontsize=12)
     ax.set_zlabel("z", fontsize=12)
-    plt.show()
+
+    # plt.show()
+
+
+def graph_path_3d(problem: Problem, solver: MinSolver):
+    # graph_3d(problem.function)
+
+    x0 = [1, 0]
+    result = solver.solve(problem, x0)
+    points = result[1]
+    xs = []
+    ys = []
+    zs = []
+    # points = [[1, 1], [2, 2], [3, 5]]
+    if points:
+        for point in points:
+            xs.append(point[0])
+            ys.append(point[1])
+            zs.append(problem.function_value(point))
+        # xs, ys = zip(*points)
+        print(xs)
+    ax = plt.axes(projection="3d")
+
+    ax.plot(xs, ys, zs, color="r")
+    pass
 
 
 if __name__ == "__main__":
-    graph_3d(funct2)
+    # graph_3d(funct2)
+    solver = MinSolver(1, 0.04)
+    problem = Problem(funct2, gradient2)
+    graph_path_3d(problem, solver)
+    plt.show()
