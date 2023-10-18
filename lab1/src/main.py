@@ -1,5 +1,5 @@
 from problem import Problem
-from gradient_solver import GradientSolver
+from gradient_solver import MinSolver
 from numpy import euler_gamma
 
 
@@ -7,7 +7,7 @@ from numpy import euler_gamma
 
 
 def main():
-    solver = GradientSolver(0.2)
+    solver = MinSolver(0.2)
     def square_funct(x):
         return 1/4 * (x[0] ** 4)
     

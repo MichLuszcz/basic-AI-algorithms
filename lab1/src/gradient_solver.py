@@ -3,7 +3,7 @@ from problem import Problem
 
 DefaultBeta = 1.4
 
-class GradientSolver(Solver):
+class MinSolver(Solver):
     
     def __init__(self, beta = DefaultBeta) -> None:
         self.beta = beta
@@ -16,8 +16,6 @@ class GradientSolver(Solver):
     def solve(self, problem: Problem, x0: list, *args, **kwargs):
         """
         A method that solves the given problem for given initial solution.
-        It may accept or require additional parameters.
-        Returns the solution and may return additional info.
         """
         x = x0
         for n in range(100):
