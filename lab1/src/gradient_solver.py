@@ -19,14 +19,15 @@ class MinSolver(Solver):
         A method that solves the given problem for given initial solution.
         """
         x = x0
+        visited_points = []
         for n in range(100):
             d = problem.gradient_value(x)
             if linalg.norm(d) <= self.epsilon:
-                return x
-
+                return x, visited_points
+            visited_points.append(x)
             for i in range(len(x)):
                 x[i] -= self.beta * d[i]
-        return x
+        return x, visited_points
         # ma znalesc minimum
         # problem = funkcja i jej gradient
         # x0 = punkt startowy w n wymiarze

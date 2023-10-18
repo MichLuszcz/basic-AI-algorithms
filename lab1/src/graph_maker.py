@@ -46,4 +46,5 @@ def graph_3d(function):
     plt.show()
 
 
-graph_3d(funct2)
+if __name__ == "__main__":
+    graph_3d(funct2)
