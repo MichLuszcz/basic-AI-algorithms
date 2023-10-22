@@ -3,6 +3,7 @@ from numpy import linspace, meshgrid
 import matplotlib.pyplot as plt
 from gradient_solver import MinSolver
 from problem import Problem
+import random
 
 
 def funct1(x):
@@ -51,24 +52,37 @@ def graph_3d(function):
 
 def graph_path_3d(problem: Problem, solver: MinSolver):
     # graph_3d(problem.function)
+    x = linspace(-Graph_W, Graph_W, 100)
+    y = linspace(-Graph_W, Graph_W, 100)
+    X, Y = meshgrid(x, y)
+    Z = problem.function([X, Y])
 
-    x0 = [1, 0]
+    fig = plt.figure(figsize=(15, 10))
+    ax = plt.axes(projection="3d")
+
+    ax.plot_surface(X, Y, Z, cmap="cool", alpha=0.5)
+    ax.set_xlabel("x", fontsize=12)
+    ax.set_ylabel("y", fontsize=12)
+    ax.set_zlabel("z", fontsize=12)
+    random_x = random.uniform(-3, 3)
+    random_y = random.uniform(-3, 3)
+    x0 = [random_x, random_y]
     result = solver.solve(problem, x0)
     points = result[1]
     xs = []
     ys = []
     zs = []
+    print(x0)
     # points = [[1, 1], [2, 2], [3, 5]]
     if points:
         for point in points:
             xs.append(point[0])
             ys.append(point[1])
             zs.append(problem.function_value(point))
-        # xs, ys = zip(*points)
-        print(xs)
-    ax = plt.axes(projection="3d")
-
-    ax.plot(xs, ys, zs, color="r")
+        # print(xs)
+    # ax = plt.axes(projection="3d")
+    ax.scatter(xs, ys, zs, marker="o")
+    ax.plot(xs, ys, zs, color="g")
     pass
 
 
