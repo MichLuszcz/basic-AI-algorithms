@@ -99,11 +99,28 @@ std dev of steps: 48.623155102494245
 # beta tak duża, że punkty często trafiają na wypłaszczenie i tam grzęzną
 
 
-epsilon = 0.5
-# tolerancja tak duża, że akceptuje bardzo słabe wyniki
-beta = 0.1
-standard deviation: 0.3272433173908042
-average result: 1.3588020066926065
-avg amount of steps: 1.7
-std dev of steps: 5.263750631163173
+dla zakresu (-2, -2) do (2, 2):
 
+epsilon = 0.01
+
+beta = 0.7
+standard deviation: 0.10014127413569401
+average result: 0.5066988395703068
+avg amount of steps: 8.53
+std dev of steps: 5.294279359780133
+    
+beta = 1
+standard deviation: 0.13955590287244699
+average result: 0.5266347533818374
+avg amount of steps: 980.0
+std dev of steps: 140.7052941362897
+ 
+beta = 3
+standard deviation: 0.4778553463449902
+average result: 1.00411061937985
+avg amount of steps: 439.79
+std dev of steps: 418.11919655195516
+# tu widzimy, że mimo zakresu bardzo bliskiego minimom beta jest za duża i punkt nie ląduje głównie w minimum globalnym tylko na obrzeżach i min lokalnym
+
+Ta metoda wyznaczania minimum funkcji jest bardzo nie efektywna w wypadku takiej funkcji.
+Poza centralnymi minimami na środku osi współrzędnych funkcja jest bardzo "płaska" przez co gradient ma bardzo małą wartość i punkt nie rusza się z miejsca. 
