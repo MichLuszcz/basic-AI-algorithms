@@ -1,9 +1,10 @@
 from numpy import euler_gamma, exp
-from numpy import linspace, meshgrid, arange
+from numpy import linspace, meshgrid, arange, average
 import matplotlib.pyplot as plt
 from gradient_solver import MinSolver
 from problem import Problem
 import random
+import statistics as stat
 
 
 def funct1(x):
@@ -101,7 +102,7 @@ def graph_path_2d(problem: Problem, solver: MinSolver, x0):
     points = result[1]
     xs = []
     ys = []
-    print(x0)
+    # print(x0)
     # points = [[1, 1], [2, 2], [3, 5]]
     if points:
         for point in points:
@@ -111,17 +112,61 @@ def graph_path_2d(problem: Problem, solver: MinSolver, x0):
     plt.plot(xs, ys, color="g")
 
 
+def random_tests_2d():
+    beta = 0.04
+    epsilon = 0.01
+    solver = MinSolver(beta, epsilon)
+    problem = Problem(funct1, gradient1)
+    steps_taken = []
+    final_values = []
+    for i in range(100):
+        x0 = [random.uniform(-5, 5)]
+        result = solver.solve(problem, x0)
+        last_point = result[0]
+        steps_taken.append(len(result[1]) - 1)
+        final_values.append(problem.function_value(last_point))
+    # print(final_values)
+    print(f"standard deviation: {stat.stdev(final_values)}")
+    print(f"average result: {average(final_values)}")
+    print(f"avg amount of steps: {average(steps_taken)}")
+    print(f"std dev of steps: {stat.stdev(steps_taken)}")
+    graph_path_2d(problem, solver, x0)
+
+    # może zrobić subploty jednej funkcji dla kilku różnych parametrów
+    plt.title(f"beta: {beta}, epsilon: {epsilon}, pkt start: {x0}")
+    # plt.show()
+
+
+def random_tests_3d():
+    beta = 0.07999
+    epsilon = 0.04
+    solver = MinSolver(beta, epsilon)
+    problem = Problem(funct1, gradient1)
+    steps_taken = []
+    results = []
+
+    random_x = random.uniform(-3, 3)
+    random_y = random.uniform(-3, 3)
+    x0 = [random_x, random_y]
+    graph_path_3d(problem, solver, x0)
+    # może zrobić subploty jednej funkcji dla kilku różnych parametrów
+    plt.title(f"beta: {beta}, epsilon: {epsilon}, pkt start: {x0}")
+    plt.show()
+
+
 if __name__ == "__main__":
     # graph_3d(funct2)
     # random_x = random.uniform(-3, 3)
     # random_y = random.uniform(-3, 3)
     # x0 = [random_x, random_y]
-    beta = 0.08
-    epsilon = 0.04
-    solver = MinSolver(beta, epsilon)
-    problem = Problem(funct1, gradient1)
-    # graph_path_3d(problem, solver, x0)
-    x0 = [5]
-    graph_path_2d(problem, solver, x0)
-    plt.title(f"beta: {beta}, epsilon: {epsilon}, pkt start: {x0}")
-    plt.show()
+    # beta = 0.07999
+    # epsilon = 0.04
+    # solver = MinSolver(beta, epsilon)
+    # problem = Problem(funct1, gradient1)
+    # # graph_path_3d(problem, solver, x0)
+    # x0 = [5]
+    # graph_path_2d(problem, solver, x0)
+    # # może zrobić subploty jednej funkcji dla kilku różnych parametrów
+    # plt.title(f"beta: {beta}, epsilon: {epsilon}, pkt start: {x0}")
+    # plt.show()
+    random_tests_2d()
