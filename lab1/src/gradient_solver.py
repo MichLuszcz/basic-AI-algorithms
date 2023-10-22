@@ -5,7 +5,7 @@ from copy import copy
 
 DefaultBeta = 0.4
 DefaultEpsilon = 0.05
-MaxIterations = 150
+MaxIterations = 1000
 
 
 class MinSolver(Solver):
