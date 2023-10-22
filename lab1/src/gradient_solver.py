@@ -26,14 +26,17 @@ class MinSolver(Solver):
         iterations = 0
         gradient_value = problem.gradient_value(current_coordinates)
         # if close enough to local minimum or takes too long, stop
-        #
         while iterations < MaxIterations and linalg.norm(gradient_value) > self.epsilon:
             iterations += 1
-            visited_points.append(copy(current_coordinates))
+            visited_points.append(
+                copy(current_coordinates)
+            )  # add current point to the list of visited points
             for i in range(len(current_coordinates)):
-                current_coordinates[i] -= self.beta * gradient_value[i]
+                current_coordinates[i] -= (
+                    self.beta * gradient_value[i]
+                )  # move the point in the decending direction
             gradient_value = problem.gradient_value(current_coordinates)
-        visited_points.append(current_coordinates)
+        visited_points.append(current_coordinates)  # add the last visited point
         return current_coordinates, visited_points
         # ma znalesc minimum
         # problem = funkcja i jej gradient
