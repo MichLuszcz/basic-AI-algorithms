@@ -21,21 +21,19 @@ class MinSolver(Solver):
         """
         A method that solves the given problem for given initial solution.
         """
-        # nazwy zmiennych
-        current_point = x0
+        current_coordinates = x0
         visited_points = []
-        # TODO zmienić na while loop
         iterations = 0
-        # while visited_points < MaxIterations and
-        for n in range(100):
-            d = problem.gradient_value(current_point)
-            if linalg.norm(d) <= self.epsilon:  # if close enough to local minimum, stop
-                return current_point, visited_points
-            visited_points.append(copy(current_point))
+        gradient_value = problem.gradient_value(current_coordinates)
+        # if close enough to local minimum or takes too long, stop
+        while iterations < MaxIterations and linalg.norm(gradient_value) > self.epsilon:
+            iterations += 1
+            visited_points.append(copy(current_coordinates))
+            for i in range(len(current_coordinates)):
+                current_coordinates[i] -= self.beta * gradient_value[i]
+            gradient_value = problem.gradient_value(current_coordinates)
 
-            for i in range(len(current_point)):
-                current_point[i] -= self.beta * d[i]
-        return current_point, visited_points
+        return current_coordinates, visited_points
         # ma znalesc minimum
         # problem = funkcja i jej gradient
         # x0 = punkt startowy w n wymiarze
