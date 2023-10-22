@@ -1,5 +1,5 @@
 from numpy import euler_gamma, exp
-from numpy import linspace, meshgrid
+from numpy import linspace, meshgrid, arange
 import matplotlib.pyplot as plt
 from gradient_solver import MinSolver
 from problem import Problem
@@ -50,7 +50,7 @@ def graph_3d(function):
     # plt.show()
 
 
-def graph_path_3d(problem: Problem, solver: MinSolver):
+def graph_path_3d(problem: Problem, solver: MinSolver, x0):
     # graph_3d(problem.function)
     x = linspace(-Graph_W, Graph_W, 100)
     y = linspace(-Graph_W, Graph_W, 100)
@@ -64,9 +64,7 @@ def graph_path_3d(problem: Problem, solver: MinSolver):
     ax.set_xlabel("x", fontsize=12)
     ax.set_ylabel("y", fontsize=12)
     ax.set_zlabel("z", fontsize=12)
-    random_x = random.uniform(-3, 3)
-    random_y = random.uniform(-3, 3)
-    x0 = [random_x, random_y]
+
     result = solver.solve(problem, x0)
     points = result[1]
     xs = []
@@ -86,9 +84,44 @@ def graph_path_3d(problem: Problem, solver: MinSolver):
     pass
 
 
+def graph_path_2d(problem: Problem, solver: MinSolver, x0):
+    X = linspace(-Graph_W, Graph_W, 50)
+    Y = problem.function([X])
+    # Y = X**2
+    plt.figure(figsize=(14, 8))
+
+    # plt.subplot(2, 3, 1)
+    plt.plot(X, Y)
+    plt.title("Plot")
+    plt.xlabel("X")
+    plt.ylabel("Y")
+    plt.grid()
+
+    result = solver.solve(problem, x0)
+    points = result[1]
+    xs = []
+    ys = []
+    print(x0)
+    # points = [[1, 1], [2, 2], [3, 5]]
+    if points:
+        for point in points:
+            xs.append(point[0])
+            ys.append(problem.function_value(point))
+    plt.scatter(xs, ys, marker="o")
+    plt.plot(xs, ys, color="g")
+
+
 if __name__ == "__main__":
     # graph_3d(funct2)
-    solver = MinSolver(1, 0.04)
-    problem = Problem(funct2, gradient2)
-    graph_path_3d(problem, solver)
+    # random_x = random.uniform(-3, 3)
+    # random_y = random.uniform(-3, 3)
+    # x0 = [random_x, random_y]
+    beta = 0.08
+    epsilon = 0.04
+    solver = MinSolver(beta, epsilon)
+    problem = Problem(funct1, gradient1)
+    # graph_path_3d(problem, solver, x0)
+    x0 = [5]
+    graph_path_2d(problem, solver, x0)
+    plt.title(f"beta: {beta}, epsilon: {epsilon}, pkt start: {x0}")
     plt.show()
