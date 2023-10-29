@@ -78,11 +78,11 @@ dla wartości od (-4, -4) do (4, 4)
 
 epsilon = 0.0001
 
-beta = 0.1
-standard deviation: 0.5010872132104336
-average result: 0.9476388212966613
-avg amount of steps: 267.72
-std dev of steps: 380.98596384442385
+beta = 0.7
+standard deviation: 0.4991352924027155
+average result: 1.0684837744187903
+avg amount of steps: 4.93
+std dev of steps: 8.291720343971223
 
 beta = 1
 standard deviation: 0.4942407589781704
