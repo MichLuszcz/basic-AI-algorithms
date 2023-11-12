@@ -44,9 +44,7 @@ def reproduce(population: list[Individual]):
     for _ in range(len(population)):
         contender_1, contender_2 = np.random.choice(population, 2, replace=False)
         new_population.append(
-            cp.copy(contender_1)
-            if fitness(contender_1) > fitness(contender_2)
-            else cp.copy(contender_2)
+            contender_1 if fitness(contender_1) > fitness(contender_2) else contender_2
         )
     return new_population
 
