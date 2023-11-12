@@ -1,4 +1,5 @@
 import numpy as np
+import random as rand
 
 
 # class holding a list describing the path taken as a list of city numbers
@@ -11,6 +12,10 @@ class Individual:
 
     def mutate(self, mutate_prob):
         # zamianki między miastami
+        for _ in range(len(self.path)):
+            if rand.random() < mutate_prob:
+                i, j = np.random.choice(range(len(self.path)), 2, replace=False)
+                self.path[i], self.path[j] = self.path[j], self.path[i]
         return self
 
     def __str__(self) -> str:
