@@ -1,7 +1,7 @@
 from Individual import Individual
 import numpy as np
 import copy as cp
-from plotter import plot_path
+from plotter import plot_path, plot_data
 
 
 cities = [
@@ -85,16 +85,19 @@ def find_best_individual(population: list[Individual]):
 
 def evolve():
     current_iteration = 0
-    max_iterations = 500
+    max_iterations = 300
     population = []
-    pop_size = 300
+    pop_size = 100
+    best_values = []
     for _ in range(pop_size):
         population.append(Individual(len(cities)))
     # n_offsprings = len(population) // 2 # chyba nie potrzebne
     best_individual = find_best_individual(population)
-    mutate_prob = 0.3
+    best_individual_value = fitness(best_individual)
+    mutate_prob = 0.2
     # proces ewolucji:
     while current_iteration < max_iterations:
+        best_values.append(best_individual_value)
         new_population = reproduce(population)
         # mogę użyć reprodukcji turniejowej, czyli na każde miejsce losowane są dwa(lub więcej) osobniki i wybierany ten lepszy
         # powinna zwrócić nową populację (chyba tej samej wielkości),
@@ -106,12 +109,15 @@ def evolve():
             new_population, mutate_prob
         )  # tu mogą być krzyżowania ale chyba odpuszczę
         best_mutated = find_best_individual(mutated)
-        if fitness(best_individual) < fitness(best_mutated):
+        best_mutated_value = fitness(best_mutated)
+        if best_individual_value < best_mutated_value:
             best_individual = best_mutated
+            best_individual_value = best_mutated_value
         population = succession(population, mutated, fitness)
         current_iteration += 1
     print(best_individual)
     print(fitness(best_individual))
+    plot_data(best_values)
     plot_path(best_individual.path, cities)
 
 
