@@ -35,6 +35,9 @@ def fitness(individual: Individual) -> float:
         city1 = np.array(cities[path[i]])
         city2 = np.array(cities[path[i + 1]])
         path_lenght += np.linalg.norm(city2 - city1)
+    city1 = np.array(cities[path[0]])
+    city2 = np.array(cities[path[-1]])
+    path_lenght += np.linalg.norm(city2 - city1)
     return -path_lenght
 
 
@@ -44,7 +47,9 @@ def reproduce(population: list[Individual]):
     for _ in range(len(population)):
         contender_1, contender_2 = np.random.choice(population, 2, replace=False)
         new_population.append(
-            contender_1 if fitness(contender_1) > fitness(contender_2) else contender_2
+            cp.deepcopy(contender_1)
+            if fitness(contender_1) > fitness(contender_2)
+            else cp.deepcopy(contender_2)
         )
     return new_population
 
@@ -79,9 +84,9 @@ def find_best_individual(population: list[Individual]):
 
 def main():
     current_iteration = 0
-    max_iterations = 100
+    max_iterations = 500
     population = []
-    pop_size = 50
+    pop_size = 100
     for _ in range(pop_size):
         population.append(Individual(len(cities)))
     # n_offsprings = len(population) // 2 # chyba nie potrzebne
@@ -105,6 +110,7 @@ def main():
         population = succession(population, mutated, fitness)
         current_iteration += 1
     print(best_individual)
+    print(fitness(best_individual))
 
 
 if __name__ == "__main__":
