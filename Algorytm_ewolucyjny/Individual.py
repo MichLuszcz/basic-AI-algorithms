@@ -12,9 +12,9 @@ class Individual:
 
     def mutate(self, mutate_prob):
         # zamianki między miastami
-        for _ in range(len(self.path)):
+        for i in range(len(self.path)):
             if rand.random() < mutate_prob:
-                i, j = np.random.choice(range(len(self.path)), 2, replace=False)
+                j = np.random.choice(range(len(self.path)), 1, replace=False)
                 self.path[i], self.path[j] = self.path[j], self.path[i]
         return self
 
