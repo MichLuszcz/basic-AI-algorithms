@@ -1,6 +1,7 @@
 from Individual import Individual
 import numpy as np
 import copy as cp
+from plotter import plot_path
 
 
 cities = [
@@ -82,11 +83,11 @@ def find_best_individual(population: list[Individual]):
     return best_ind
 
 
-def main():
+def evolve():
     current_iteration = 0
     max_iterations = 500
     population = []
-    pop_size = 100
+    pop_size = 300
     for _ in range(pop_size):
         population.append(Individual(len(cities)))
     # n_offsprings = len(population) // 2 # chyba nie potrzebne
@@ -111,7 +112,8 @@ def main():
         current_iteration += 1
     print(best_individual)
     print(fitness(best_individual))
+    plot_path(best_individual.path, cities)
 
 
 if __name__ == "__main__":
-    main()
+    evolve()
