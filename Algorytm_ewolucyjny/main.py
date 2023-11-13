@@ -2,6 +2,7 @@ from Individual import Individual
 import numpy as np
 import copy as cp
 from plotter import plot_path, plot_data
+import sys
 
 
 cities = [
@@ -83,11 +84,29 @@ def find_best_individual(population: list[Individual]):
     return best_ind
 
 
-def evolve():
+DEFAULT_MAX_ITERATIONS = 100
+DEFAULT_POPULATION_SIZE = 10
+DEFAULT_MUTATE_PROBABILITY = 0.1
+
+
+def evolve(args):
     current_iteration = 0
-    max_iterations = 10
-    pop_size = 100
-    mutate_prob = 0.3
+    max_iterations = DEFAULT_MAX_ITERATIONS
+    pop_size = DEFAULT_POPULATION_SIZE
+    mutate_prob = DEFAULT_MUTATE_PROBABILITY
+    if len(args) > 4:
+        raise (
+            ValueError(
+                "Incorrect amount of arguments passed. Please enter 0-3 arguments"
+            )
+        )
+    if len(args) > 1:
+        max_iterations = int(args[1])
+        if len(args) > 2:
+            pop_size = int(args[2])
+            if len(args) > 3:
+                mutate_prob = float(args[3])
+
     population = []
     best_values = []
     for _ in range(pop_size):
@@ -120,4 +139,4 @@ def evolve():
 
 
 if __name__ == "__main__":
-    evolve()
+    evolve(args=sys.argv)

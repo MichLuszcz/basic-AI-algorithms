@@ -28,13 +28,13 @@ def plot_path(
     if len(route) > 0:
         plt.title(
             f"""Visiting {len(route)} cities with cost of {-final_fitness}.
-            epochs: {iterations}, popualtion: {population_size}, mutation_chance: {mutation_chance}""",
+            epochs: {iterations}, popualtion: {population_size}, mutation chance: {mutation_chance}""",
             size=16,
         )
     else:
         plt.title(
             f"""Visiting {len(route)} cities.
-            epochs: {iterations}, popualtion: {population_size}, mutation_chance: {mutation_chance}""",
+            epochs: {iterations}, popualtion: {population_size}, mutation chance: {mutation_chance}""",
             size=16,
         )
     plt.show()
@@ -53,12 +53,12 @@ def plot_data(
         ax.plot(x_vals, average_vals, color="b", label="Average specimen in each epoch")
         ax.set_title(
             f"""Best and average values of the goal function in each epoch
-            epochs: {iterations}, popualtion: {population_size}, mutation_chance: {mutation_chance}"""
+            epochs: {iterations}, popualtion: {population_size}, mutation chance: {mutation_chance}"""
         )
     else:
         ax.set_title(
             f"""Best value of the goal function in each epoch
-            epochs: {iterations}, popualtion: {population_size}, mutation_chance: {mutation_chance}"""
+            epochs: {iterations}, popualtion: {population_size}, mutation chance: {mutation_chance}"""
         )
     plt.grid(True)
     plt.xlabel("Fitness")
