@@ -42,7 +42,7 @@ def fitness(individual: Individual) -> float:
     return -path_lenght
 
 
-# turniejowa reprodukcja,
+# tourney reproduction
 def reproduce(population: list[Individual]):
     new_population = []
     for _ in range(len(population)):
@@ -85,29 +85,20 @@ def find_best_individual(population: list[Individual]):
 
 def evolve():
     current_iteration = 0
-    max_iterations = 300
-    population = []
+    max_iterations = 100
     pop_size = 100
+    mutate_prob = 0.2
+    population = []
     best_values = []
     for _ in range(pop_size):
         population.append(Individual(len(cities)))
-    # n_offsprings = len(population) // 2 # chyba nie potrzebne
     best_individual = find_best_individual(population)
     best_individual_value = fitness(best_individual)
-    mutate_prob = 0.2
-    # proces ewolucji:
+    # evolutionary process:
     while current_iteration < max_iterations:
         best_values.append(best_individual_value)
         new_population = reproduce(population)
-        # mogę użyć reprodukcji turniejowej, czyli na każde miejsce losowane są dwa(lub więcej) osobniki i wybierany ten lepszy
-        # powinna zwrócić nową populację (chyba tej samej wielkości),
-        # ale prawdopodobieństwo powielenia starego osobnika do nowej
-        # populacji jest proporcjonalne (lub odwrotnie proporcjonalne jesli przyjmiemy duży fitness jako zły)
-        # do jego oceny funkcją fitness
-        # UWAŻAĆ NA TO ŻEBY TEN SAM OBIEKT NIE BYŁ W WIELU MIEJSCACH NA RAZ BO BĘDĄ SIĘ WSZYSKIE MUTOWAŁY NARAZ
-        mutated = mass_mutate(
-            new_population, mutate_prob
-        )  # tu mogą być krzyżowania ale chyba odpuszczę
+        mutated = mass_mutate(new_population, mutate_prob)
         best_mutated = find_best_individual(mutated)
         best_mutated_value = fitness(best_mutated)
         if best_individual_value < best_mutated_value:

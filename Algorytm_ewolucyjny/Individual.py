@@ -11,7 +11,7 @@ class Individual:
             self.path = np.random.choice(range(n_cities), n_cities, replace=False)
 
     def mutate(self, mutate_prob):
-        # zamianki między miastami
+        # swap the order of visited cities
         for i in range(len(self.path)):
             if rand.random() < mutate_prob:
                 j = np.random.choice(range(len(self.path)), 1, replace=False)
