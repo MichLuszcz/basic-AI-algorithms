@@ -2,7 +2,9 @@ import matplotlib.pyplot as plt
 import numpy as np
 
 
-def plot_path(route, cities):
+def plot_path(
+    route, cities, final_fitness, iterations, population_size, mutation_chance
+):
     cities = np.array(cities)
     plt.figure(figsize=(12, 8))
     plt.scatter(x=cities[:, 0], y=cities[:, 1], s=1000, zorder=1)
@@ -24,13 +26,23 @@ def plot_path(route, cities):
             zorder=0,
         )
     if len(route) > 0:
-        plt.title(f"Visiting {len(route)} cities in length", size=16)
+        plt.title(
+            f"""Visiting {len(route)} cities with cost of {-final_fitness}.
+            epochs: {iterations}, popualtion: {population_size}, mutation_chance: {mutation_chance}""",
+            size=16,
+        )
     else:
-        plt.title(f"{len(cities)} cities", size=16)
+        plt.title(
+            f"""Visiting {len(route)} cities.
+            epochs: {iterations}, popualtion: {population_size}, mutation_chance: {mutation_chance}""",
+            size=16,
+        )
     plt.show()
 
 
-def plot_data(best_vals, average_vals=None):
+def plot_data(
+    best_vals, iterations, population_size, mutation_chance, average_vals=None
+):
     if average_vals:
         if not len(best_vals) == len(average_vals):
             raise ValueError("Values to plot have to be the same in size.")
@@ -39,9 +51,17 @@ def plot_data(best_vals, average_vals=None):
     ax.plot(x_vals, best_vals, color="r", label="Best specimen in each epoch")
     if average_vals is not None:
         ax.plot(x_vals, average_vals, color="b", label="Average specimen in each epoch")
-        ax.set_title("Best and average values of the goal function in each epoch")
+        ax.set_title(
+            f"""Best and average values of the goal function in each epoch
+            epochs: {iterations}, popualtion: {population_size}, mutation_chance: {mutation_chance}"""
+        )
     else:
-        ax.set_title("Best value of the goal function in each epoch")
+        ax.set_title(
+            f"""Best value of the goal function in each epoch
+            epochs: {iterations}, popualtion: {population_size}, mutation_chance: {mutation_chance}"""
+        )
     plt.grid(True)
+    plt.xlabel("Fitness")
+    plt.ylabel("Epoch number")
     plt.legend()
     plt.show()

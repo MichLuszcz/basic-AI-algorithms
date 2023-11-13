@@ -85,9 +85,9 @@ def find_best_individual(population: list[Individual]):
 
 def evolve():
     current_iteration = 0
-    max_iterations = 100
+    max_iterations = 10
     pop_size = 100
-    mutate_prob = 0.2
+    mutate_prob = 0.3
     population = []
     best_values = []
     for _ in range(pop_size):
@@ -107,9 +107,16 @@ def evolve():
         population = succession(population, mutated, fitness)
         current_iteration += 1
     print(best_individual)
-    print(fitness(best_individual))
-    plot_data(best_values)
-    plot_path(best_individual.path, cities)
+    print(best_individual_value)
+    plot_data(best_values, max_iterations, pop_size, mutate_prob)
+    plot_path(
+        best_individual.path,
+        cities,
+        round(best_individual_value, 2),
+        max_iterations,
+        pop_size,
+        mutate_prob,
+    )
 
 
 if __name__ == "__main__":
