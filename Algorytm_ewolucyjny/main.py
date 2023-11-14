@@ -85,7 +85,7 @@ def find_best_individual(population: list[Individual]):
 
 
 DEFAULT_MAX_ITERATIONS = 100
-DEFAULT_POPULATION_SIZE = 10
+DEFAULT_POPULATION_SIZE = 100
 DEFAULT_MUTATE_PROBABILITY = 0.1
 
 
@@ -136,6 +136,7 @@ def evolve(args):
         pop_size,
         mutate_prob,
     )
+    return (best_individual, best_individual_value)
 
 
 if __name__ == "__main__":
