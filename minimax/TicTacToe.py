@@ -45,6 +45,7 @@ class TicTacToe:
         else:
             self.current_player = self.player_1
         self.check_winner()
+        self.check_game_over()
 
     def get_board(self):
         return self._board
@@ -55,7 +56,7 @@ class TicTacToe:
         return new_game
 
     def check_game_over(self):
-        if len(self.get_possible_moves()) == 0:
+        if len(self.get_possible_moves()) == 0 or self.winner is not None:
             self.game_over = True
 
     def check_winner(self):
