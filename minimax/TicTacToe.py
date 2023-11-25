@@ -1,25 +1,10 @@
 import copy as cp
-
-
-class Move:
-
-    def __init__(self, row, col, symbol: str):
-        self.row = row
-        self.column = col
-        self.symbol = symbol
-
-
-class Player:
-    def __init__(self, name, type):
-        self.name = name
-        self.type = type
-
-    def get_move(self):
-        pass
+from Player import HumanPlayer
+from Move import Move
 
 
 class TicTacToe:
-    def __init__(self, player1=Player("player1", "human"), player2=Player("player2", "human"), state=None):
+    def __init__(self, player1=HumanPlayer("player1", "human"), player2=HumanPlayer("player2", "human"), state=None):
         if state is None:
             self._board = [
                 ["", "", ""],
@@ -34,6 +19,8 @@ class TicTacToe:
         # starting player is always Circles
         self.current_player = player1
         self.winner = None
+        # TODO: change to is_over
+        self.game_over = False
 
     def get_possible_moves(self) -> list[Move]:
         symbol = ""
@@ -46,12 +33,17 @@ class TicTacToe:
             for space_i in range(len(self._board[line_i])):
                 if self._board[line_i][space_i] == "":
                     moves.append(Move(line_i, space_i, symbol))
+        return moves
 
     def make_move(self, move: Move):
         if self._board[move.row][move.column] == "":
             self._board[move.row][move.column] = move.symbol
         else:
             raise (ValueError("Illegal move"))
+        if self.current_player is self.player_1:
+            self.current_player = self.player_2
+        else:
+            self.current_player = self.player_1
         self.check_winner()
 
     def get_board(self):
@@ -61,6 +53,10 @@ class TicTacToe:
         new_game = cp.deepcopy(self)
         new_game.make_move(move)
         return new_game
+
+    def check_game_over(self):
+        if len(self.get_possible_moves()) == 0:
+            self.game_over = True
 
     def check_winner(self):
         winning_mark = ""
@@ -84,6 +80,17 @@ class TicTacToe:
         if (winning_mark == "X"):
             self.winner = self.player_2
 
+    def get_heuristic(self):
+        if self.winner is self.player_1:
+            return 1
+        elif self.winner is self.player_2:
+            return -1
+        return 0
+
+    def get_player_move(self):
+        if not self.game_over:
+            return self.current_player.get_move(self.get_possible_moves(), self)
+
     def display_board(self):
         separator = "_" * 10
         print(separator)
@@ -94,8 +101,9 @@ class TicTacToe:
             print()
             print(separator)
 
-# game = TicTacToe()
+# #
+# game = TicTacToe(HumanPlayer("1", "human"), HumanPlayer("2", "human"))
 # game.display_board()
-# move = Move(0, 0, "O")
+# move = game.get_player_move()
 # new_game = game.simulate_move(move)
 # new_game.display_board()
