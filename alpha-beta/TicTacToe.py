@@ -52,6 +52,7 @@ class TicTacToe:
             self._board[move.row][move.column] = move.symbol
         else:
             raise (ValueError("Illegal move"))
+        self.check_winner()
 
     def get_board(self):
         return self._board
