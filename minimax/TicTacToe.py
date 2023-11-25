@@ -21,6 +21,7 @@ class TicTacToe:
         self.winner = None
         # TODO: change to is_over
         self.game_over = False
+        self.moves_made = 0
 
     def get_possible_moves(self) -> list[Move]:
         symbol = ""
@@ -44,6 +45,7 @@ class TicTacToe:
             self.current_player = self.player_2
         else:
             self.current_player = self.player_1
+        self.moves_made += 1
         self.check_winner()
         self.check_game_over()
 
@@ -80,13 +82,6 @@ class TicTacToe:
             return
         if (winning_mark == "X"):
             self.winner = self.player_2
-
-    def get_heuristic(self):
-        if self.winner is self.player_1:
-            return 1
-        elif self.winner is self.player_2:
-            return -1
-        return 0
 
     def get_player_move(self):
         if not self.game_over:

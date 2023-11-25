@@ -3,14 +3,19 @@ from Player import Player
 import random as rand
 
 
+def heuristic(game: TicTacToe, max_player):
+    moves_done = game.moves_made
+    if game.winner is None:
+        return 0 + moves_done
+    if game.winner == max_player:
+        return 10 - moves_done
+    return -10
+
+
 def minimax(game: TicTacToe, max_player, depth=1000):
     # best_result = 0
     if depth == 0 or game.game_over:
-        if game.winner is None:
-            return 0
-        if game.winner == max_player:
-            return 1
-        return -1
+        return heuristic(game, max_player)
 
     if game.current_player == max_player:
         best_result = float('-inf')
@@ -30,18 +35,15 @@ def minimax(game: TicTacToe, max_player, depth=1000):
 
 class MinimaxPlayer(Player):
     def get_move(self, possible_moves: list[Move], game):
-        good_move_found = False
-        possible_winning_moves = []
-        possible_draw_moves = []
+
+        best_move = ""
+        best_scenario = float('-inf')
         for valid_move in possible_moves:
             next_state = game.simulate_move(valid_move)
             best_case = minimax(next_state, self)
-            if best_case == 1:
-                possible_winning_moves.append(valid_move)
-            if best_case == 0:
-                possible_draw_moves.append(valid_move)
-        if possible_winning_moves:
-            return rand.choice(possible_winning_moves)
-        if possible_draw_moves:
-            return rand.choice(possible_draw_moves)
+            if best_case > best_scenario:
+                best_move = valid_move
+                best_scenario = best_case
+        if best_move:
+            return best_move
         return rand.choice(possible_moves)
