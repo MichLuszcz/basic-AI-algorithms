@@ -10,6 +10,11 @@ class Player:
     def get_move(self, possible_moves, game):
         pass
 
+    def __eq__(self, other):
+        if self.name == other.name and self.type == other.type:
+            return True
+        return False
+
 
 class HumanPlayer(Player):
     def get_move(self, possible_moves: list[Move], game):
