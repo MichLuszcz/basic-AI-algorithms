@@ -149,12 +149,11 @@ def random_tests_3d():
 
 
 if __name__ == "__main__":
-    random_x = random.uniform(-4, 4)
-    random_y = random.uniform(-4, 4)
-    x0 = [random_x, random_y]
-    start_point = x0
-    beta = 3
-    epsilon = 0.1
+    random_x = random.uniform(-2, 2)
+    random_y = random.uniform(-2, 2)
+    x0 = [3.3, -1.7]
+    beta = 1
+    epsilon = 0.00001
     solver = MinSolver(beta, epsilon)
     # graph_path_2d(Problem(funct1, gradient1), solver, x0)
     graph_path_3d(Problem(funct2, gradient2), solver, x0)
