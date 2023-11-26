@@ -8,8 +8,8 @@ def heuristic(game: TicTacToe, max_player):
     if game.winner is None:
         return 0 + moves_done
     if game.winner == max_player:
-        return 10 - moves_done
-    return -10
+        return 20 - moves_done
+    return -20 + moves_done
 
 
 def minimax(game: TicTacToe, max_player, depth=1000):
