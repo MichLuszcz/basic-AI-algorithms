@@ -35,7 +35,7 @@ def minimax(game: TicTacToe, max_player, depth=1000):
 
 class MinimaxPlayer(Player):
     def get_move(self, possible_moves: list[Move], game):
-
+        rand.shuffle(possible_moves)
         best_move = ""
         best_scenario = float('-inf')
         for valid_move in possible_moves:
