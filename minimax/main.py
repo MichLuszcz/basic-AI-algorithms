@@ -12,8 +12,11 @@ def main():
         game.make_move(game.get_player_move())
         print("_" * 15)
 
+    game.display_board()
     if game.winner is not None:
         print("Winner:" + game.winner.name)
+    else:
+        print("Draw!")
 
 
 if __name__ == "__main__":
