@@ -1,4 +1,5 @@
 from Move import Move
+import random as rand
 
 
 class Player:
@@ -15,15 +16,22 @@ class Player:
             return True
         return False
 
+    def __str__(self):
+        return self.name
+
 
 class HumanPlayer(Player):
     def get_move(self, possible_moves: list[Move], game):
         good_move_found = False
         while not good_move_found:
-            picked_row = (int(input("Enter row (0, 1, 2 from the top): ")))
-            print()
-            picked_column = (int(input("Enter column (0, 1, 2 from the left): ")))
+            picked_row = (int(input("Enter row (1, 2, 3 from the top): ")) - 1)
+            picked_column = (int(input("Enter column (1, 2, 3 from the left): ")) - 1)
             for valid_move in possible_moves:
                 if valid_move.row == picked_row and valid_move.column == picked_column:
                     return valid_move
             print("Please select a valid move")
+
+
+class RandomPlayer(Player):
+    def get_move(self, possible_moves: list[Move], game):
+        return rand.choice(possible_moves)
