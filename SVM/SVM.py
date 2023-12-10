@@ -24,7 +24,8 @@ class SVM:
                 # our cost function for single specimen = lambda * ||w||^2 + max(0, 1 - yi * (w * xi - b))
                 # this means that its just lambda * ||w||^2 when yi * f(x) >= 1
 
-                derivative_condition = binary_labels[sample_index] * np.dot(x[sample_index], self.weights) >= 1
+                derivative_condition = binary_labels[sample_index] * (
+                        np.dot(x[sample_index], self.weights) - self.bias) >= 1
 
                 if derivative_condition:
                     self.weights -= learning_rate * (2 * self.lambda_param * self.weights)
