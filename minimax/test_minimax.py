@@ -85,3 +85,17 @@ def test_human_win_longgame():
     result_player_2 = minimax(game, player_2)
     assert result_player_1 == 0
     assert result_player_2 == 0
+
+# | X | O | X |
+# __________
+# | O | O | X |
+# __________
+# | O |  |  |
+#
+# ??????????????
+#
+# | X | O | X |
+# __________
+# | O | O | X |
+# __________
+# | O | X |  |

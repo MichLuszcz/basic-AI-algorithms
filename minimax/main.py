@@ -15,8 +15,8 @@ def main():
     player_human = HumanPlayer("Player", "human")
     minimax_1 = MinimaxPlayer("Minimax", "bot")
     minimax_2 = MinimaxPlayer("Minimax2", "bot")
-    player_1 = player_human
-    player_2 = minimax_1
+    player_2 = player_human
+    player_1 = minimax_1
     auto = args.auto
     if auto:
         player_1 = minimax_2

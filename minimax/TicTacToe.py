@@ -97,7 +97,7 @@ class TicTacToe:
             print()
             print(separator)
 
-# #
+#
 # game = TicTacToe(HumanPlayer("1", "human"), HumanPlayer("2", "human"))
 # game.display_board()
 # move = game.get_player_move()
