@@ -16,7 +16,7 @@ class SVM:
 
         # The number of features in X
         number_of_features = x.shape[1]
-        self.weights = np.zeros((1, number_of_features))
+        self.weights = np.zeros(number_of_features)
         binary_labels = np.where(y == self.target_number, 1, -1)
 
         for _ in range(epochs):
@@ -35,7 +35,7 @@ class SVM:
                                       - np.dot(x[sample_index], binary_labels[sample_index])))
                     self.bias = learning_rate * binary_labels[sample_index]
 
-        return
+        return self.weights, self.bias
 
     def predict(self, x):
         return np.sign(np.dot(x, self.weights) - self.bias)
