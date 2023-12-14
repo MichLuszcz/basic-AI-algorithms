@@ -1,55 +1,72 @@
-import numpy as np
-import random
 import matplotlib.pyplot as plt
-from sklearn.datasets import make_blobs, make_moons, make_circles
-from sklearn.metrics import mean_squared_error
-from sklearn.svm import SVC
-from sklearn.model_selection import train_test_split
-from sklearn.metrics import accuracy_score
+from sklearn.metrics import confusion_matrix
+from sklearn.metrics import accuracy_score, ConfusionMatrixDisplay, classification_report
 from SVM import SVM
 import mnist
-from plot import plot_svm
+import argparse
+from constants import LEARNING_SIZE, TESTING_SIZE, LAMBDA_DEFAULT, EPOCHS_DEFAULT, LEARNING_RATE_DEFAULT
 
 czumpi_array = mnist.test_images()
 
-X1, y1 = make_blobs(n_samples=200, centers=2, cluster_std=0.60)
-y1 = np.where(y1 <= 0, -1, 1)
-print("First five rows and col values \nX1 : \n", X1[:5], " \n y1 :\n", y1[:5])
-plt.scatter(X1[:, 0], X1[:, 1], c=y1, s=50, cmap='winter', alpha=.5)
-plt.title("Dataset 1")
-plt.show()
 
-svm1 = SVM(0.01, 1)
-w1, b1 = svm1.train(X1, y1, 0.001, 1000)
-print("For dataset 1, score:", accuracy_score(svm1.predict(X1), y1))
-plot_svm(X1, y1, w1, b1, title='Linear SVM for dataset 1')
+def main():
+    parser = argparse.ArgumentParser()
+    parser.add_argument("-lamb",
+                        help="Lambda parameter for minimising (lambda * ||w||^2)",
+                        default=LAMBDA_DEFAULT)
+    parser.add_argument("-lr",
+                        help="Learning rate",
+                        default=LEARNING_RATE_DEFAULT)
+    parser.add_argument("-e",
+                        help="Number of epochs in training",
+                        default=EPOCHS_DEFAULT)
+    args = parser.parse_args()
+    lambda_param = float(args.lamb)
+    learning_rate = float(args.lr)
+    epochs = int(args.e)
 
-svms = []
-for i in range(10):
-    svms.append(SVM(0.01, i))
+    svms = []
+    for i in range(10):
+        # if i != 5:
+        svms.append(SVM(lambda_param, i))
+    # else:
+    #     svms.append(SVM(0.01, i))
 
-print("Training for minst database:")
-training_set, training_labels = mnist.train_images()[:300], mnist.train_labels()[:300]
-training_set = training_set.reshape(training_set.shape[0], -1) / 255.0
+    print("Training for mnist dataset:")
+    training_set, training_labels = mnist.train_images()[:LEARNING_SIZE], mnist.train_labels()[:LEARNING_SIZE]
+    training_set = training_set.reshape(training_set.shape[0], -1) / 255.0
 
-testing_set = mnist.test_images()[:100]
-testing_set = testing_set.reshape(testing_set.shape[0], -1) / 255.0
-testing_labels = mnist.test_labels()[:100]
+    testing_set = mnist.test_images()[:TESTING_SIZE]
+    testing_set = testing_set.reshape(testing_set.shape[0], -1) / 255.0
+    testing_labels = mnist.test_labels()[:TESTING_SIZE]
 
-print(training_set[0])
-for svm in svms:
-    svm.train(training_set, training_labels, 0.001, 2000)
+    for svm in svms:
+        # if svm.target_number == 5:
+        #     svm.train(training_set, training_labels, 0.1, epochs)
+        # else:
+        svm.train(training_set, training_labels, learning_rate, epochs)
 
-total_found = 0
-for sample_index in range(testing_set.shape[0]):
-    found = -1
-    recognised = []
-    for svm_index in range(10):
-        result = svms[svm_index].predict(testing_set[sample_index])
-        if result == 1 and svm_index == testing_labels[sample_index]:
-            found = svm_index
-            recognised.append(found)
-    print(recognised)
-    if found == testing_labels[sample_index]:
-        total_found += 1
-print("Total found: ", total_found)
+    total_found = 0
+    y_predicted = []
+    for sample_index in range(testing_set.shape[0]):
+        found = -1
+        recognised = []
+        for svm_index in range(10):
+            result = svms[svm_index].predict(testing_set[sample_index])
+            if result == 1 and svm_index == testing_labels[sample_index]:
+                found = svm_index
+                recognised.append(found)
+        y_predicted.append(found)
+        if found == testing_labels[sample_index]:
+            total_found += 1
+    labels = [-1, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+    print("Accuracy score: ", accuracy_score(testing_labels, y_predicted))
+    print("General report: ", classification_report(testing_labels, y_predicted))
+    cm = confusion_matrix(testing_labels, y_predicted, labels=labels)
+    disp = ConfusionMatrixDisplay(confusion_matrix=cm, display_labels=labels)
+    disp.plot()
+    plt.show()
+
+
+if __name__ == "__main__":
+    main()
