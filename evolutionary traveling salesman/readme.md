@@ -1,12 +1,12 @@
-Użyte biblioteki:
+Used libraries:
 matplotlib
 numpy
 random
 copy
 sys (for passing arguments from the command line)
 
-
-instrukcja uruchomienia:
-należy pobrać wszystkie potrzebne zależności (matplotlib i numpy, reszta jest standardowo jeśli dobrze pamiętam)
-uruchomić `python main.py [ilość epok] [wielkość populacji] [prawdopodobieństwo mutacji genu w zakresie 0-1 jako wartość ułamkowa]`
-program można uruchomić z 1, 2 lub 3 argumentami. Pozostałe zostaną ustawione na domyślne wartości
+Execution examples:
+```shell
+python main.py [number of epochs] [population size] [probability of gene mutation in the range 0-1 as a fractional value]
+```
+The program can be run with 1, 2, or 3 arguments. The rest will be set to default values.
