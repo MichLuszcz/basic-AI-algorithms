@@ -1,13 +1,23 @@
-Program nie używa żadnych zewnętrznych bibliotek poza standardową
+The program does not use any libraries besides the standard ones.
 
-Aby uruchomić aplikację i zagrać w kółko i krzyżyk z botem lub obserwować rozgrywkę między dwoma botami należy
-wykonać polecenie:
-'python ./main.py [-p] [--auto]'
--p : ktorym graczem jest czlowiek, 1 lub 2, domyślnie 1
---auto : flaga określająca czy gra ma być między dwoma botami. Jeśli jest dodana to tak, domyślnie nie
+To run the application and play tic-tac-toe with a bot or observe the game between two bots, you need to execute the command:
+```shell
+python ./main.py [-p] [--auto]
+```
+-p: specifies which player is human, 1 or 2, default is 1
+--auto: a flag indicating whether the game should be between two bots. If added, then yes, default is no
 
-Przykłady użycia:
-`python ./main.py` uruchamia klasyczną rozgrywkę z botem z nami jako pierwszym graczem
-`python ./main.py -p 2` uruchamia rozgrywkę z botem z nami jako drugim graczem
-`python ./main.py --auto` program przeprowadzi i pokaże rozgrywkę dwóch botów
-użycie flagi --auto powoduje zignorowanie argumentu -p
+Usage examples:
+```shell
+python ./main.py 
+``` runs a classic game with a bot with us as the first player
+```shell
+python ./main.py -p 2
+``` runs a game with a bot with us as the second player
+```shell python ./main.py --auto
+``` the program will conduct and show a game between two bots
+Using the --auto flag ignores the -p argument.
+
+
+
+
