@@ -2,3 +2,7 @@ __pycache__
 .vscode
 garve
 .pytest*
+*.png
+*.pdf
+*.idea
+*.zip
