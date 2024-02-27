@@ -10,12 +10,17 @@ python ./main.py [-p] [--auto]
 Usage examples:
 ```shell
 python ./main.py 
-``` runs a classic game with a bot with us as the first player
+```
+runs a classic game with a bot with us as the first player
+
 ```shell
 python ./main.py -p 2
-``` runs a game with a bot with us as the second player
-```shell python ./main.py --auto
-``` the program will conduct and show a game between two bots
+```
+runs a game with a bot with us as the second player
+```shell
+python ./main.py --auto
+```
+the program will conduct and show a game between two bots
 Using the --auto flag ignores the -p argument.
 
 
