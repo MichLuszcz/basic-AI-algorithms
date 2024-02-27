@@ -8,5 +8,5 @@ It includes:
 I also implemented a simple neural net, that project was however rushed so I don't share it here as it's not representative.
 
 ## What I learned:
-- using different AI algorithms to solve different problems, ones often very difficult ones for humans
+- using different AI algorithms to solve different problems, ones often very difficult for humans
 - using the numpy library for matrix and vector operations
